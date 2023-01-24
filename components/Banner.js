@@ -9,7 +9,7 @@ function Banner() {
         <div className='absolute top-1/2 w-full text-center'>
             <h1 className='text-lg sm:text-5xl font-bold text-gray-800 -mt-4'>Your buddy to plan your next trip.</h1>
 
-            <button className='text-red-500 bg-white px-10 py-4 shadow-lg rounded-full font-bold my-5 hover:shadow-2xl active:scale-90 transition duration-150'>Click here!</button>
+            <button className='text-red-500 bg-white px-10 py-4 shadow-md rounded-full font-bold my-5 hover:shadow-xl active:scale-90 transition duration-150'>Click here!</button>
         </div>
     </div>
   )
