@@ -2,8 +2,9 @@ import Header from "../components/Header";
 import Head from "next/head";
 import Banner from "@/components/Banner";
 import SmallCard from "@/components/SmallCard";
+import MediumCard from "@/components/MediumCard";
 
-export default function Home({ exploreData }) {
+export default function Home({ exploreData, cardsData }) {
   return (
     <>
       <Head>
@@ -20,6 +21,9 @@ export default function Home({ exploreData }) {
 
           {/* Pulling data from server- API ENDPOINTS */}
           {/* The "?" below after exploreData denotes to handle any error, like if there is no exploreData */}
+          {/* There are 2 ways to write the following code: */}
+
+          {/* first way: Without return{}, Its just (item) => (...) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-4">
           {exploreData?.map((item) => (
             <SmallCard
@@ -31,6 +35,28 @@ export default function Home({ exploreData }) {
           ))}
           </div>
         </section>
+
+        <section>
+          <h2 className="text-4xl font-semibold py-8">Live Anywhere!</h2>
+          {/* The 2nd way: With return{}, Its just (item) => {return (...)} */}
+          {/* We here are hiding the scroll bar, and we are using overflow-scroll... but for hinding, I am using tailwind framework: tailwind-scrollbar-hide, I first npm i tailwind-scrollbar-hide and then changed tailwind.config.js by adding:
+          plugins: [
+            require("tailwind-scrollbar-hide")
+          ],
+          And finally added, scrollbar-hide in this following code */}
+          <div className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3">
+          {cardsData?.map(({img, title}) => {
+            return (
+              <MediumCard
+                key = {img}
+                img = {img}
+                title = {title}
+              />
+            )
+          })}
+          </div>
+        </section>
+
       </main>
     </>
   );
@@ -41,9 +67,14 @@ export async function getStaticProps() {
     (res) => res.json()
   );
 
+  const cardsData = await fetch().then(
+    (res) => res.json()
+  );
+
   return {
     props: {
       exploreData,
+      cardsData,
     },
   };
 }
