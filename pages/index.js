@@ -3,6 +3,7 @@ import Head from "next/head";
 import Banner from "@/components/Banner";
 import SmallCard from "@/components/SmallCard";
 import MediumCard from "@/components/MediumCard";
+import LargeCard from "@/components/LargeCard";
 
 export default function Home({ exploreData, cardsData }) {
   return (
@@ -57,6 +58,14 @@ export default function Home({ exploreData, cardsData }) {
           </div>
         </section>
 
+        <LargeCard 
+          img="https://images.unsplash.com/photo-1447160666621-25f14cda2fcc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1468&q=80"
+          title ="The Greatest Outdoors"
+          description="Whitelist curated by our team of travel experts"
+          buttonText="Get Inspired"
+
+        />
+
       </main>
     </>
   );
@@ -67,7 +76,7 @@ export async function getStaticProps() {
     (res) => res.json()
   );
 
-  const cardsData = await fetch().then(
+  const cardsData = await fetch("http://localhost:3000/api/middleCards").then(
     (res) => res.json()
   );
 
