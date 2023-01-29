@@ -7,10 +7,12 @@ import { FiUsers } from "react-icons/fi";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
+import { useRouter } from "next/router";
 
 function Header() {
   const [searchInput, setSearchInput] = useState("");
   const [noOfGuests, setNoOfGuests] = useState(1);
+  const router = useRouter();
   // for date range
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -31,16 +33,32 @@ function Header() {
     setSearchInput("");
   }
 
+  // IMPORTANT
+
+  const search = () => {
+    router.push({
+      pathname: "/search",
+      query: {
+        location: "searchInput",
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        noOfGuests,
+      },
+    });
+  }
+
   return (
     <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-3 md:px-10 ">
       {/* left */}
       <div>
-        <Image src={"/airbnb-logo-icon-png.png"} width={50} height={50} />
+      {/* this onclick will take you to the home page, this is 2nd way of doing it, the 1st way is to use <Link> tag */}
+        <Image onClick={() => router.push("/")} src={"/airbnb-logo-icon-png.png"} width={50} height={50} />
       </div>
 
       {/* Middle-Search*/}
       <div className="flex item-center md:border-2 rounded-full py-2 shadow-sm">
         <input
+          value={searchInput}
           onChange={(e) => {
             setSearchInput(e.target.value);
           }}
@@ -85,7 +103,7 @@ function Header() {
           </div>
           <div className="flex">
             <button onClick={resetInput} className="flex-grow text-gray-500">Cancel</button>
-            <button className="flex-grow text-red-400">Search</button>
+            <button onClick={search} className="flex-grow text-red-400">Search</button>
           </div>
         </div>
       )}
