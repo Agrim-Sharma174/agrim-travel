@@ -9,7 +9,7 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
 import { useRouter } from "next/router";
 
-function Header() {
+function Header({placeholder}) {
   const [searchInput, setSearchInput] = useState("");
   const [noOfGuests, setNoOfGuests] = useState(1);
   const router = useRouter();
@@ -39,7 +39,7 @@ function Header() {
     router.push({
       pathname: "/search",
       query: {
-        location: "searchInput",
+        location: searchInput,
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
         noOfGuests,
@@ -64,7 +64,7 @@ function Header() {
           }}
           className="pl-5 bg-transparent outline-none flex-grow text-sm text-gray-600 placeholder-gray-400"
           type="text"
-          placeholder="Search here"
+          placeholder={placeholder||"Search here"}
         />{" "}
         <AiOutlineSearch className=" hidden md:inline-flex h-8 w-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2" />
       </div>
